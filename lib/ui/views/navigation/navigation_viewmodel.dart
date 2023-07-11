@@ -63,13 +63,11 @@ class NavigationViewModel extends IndexTrackingViewModel {
   Widget getViewForIndex(int index) {
     switch (index) {
       case 0:
-        return const HomeView();
-      case 1:
         return const PatcherView();
-      case 2:
+      case 1:
         return const SettingsView();
       default:
-        return const HomeView();
+        return const PatcherView();
     }
   }
 }
