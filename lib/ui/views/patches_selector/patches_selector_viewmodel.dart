@@ -19,7 +19,7 @@ class PatchesSelectorViewModel extends BaseViewModel {
       locator<PatcherViewModel>().selectedPatches;
   String? patchesVersion = '';
   bool isDefaultPatchesRepo() {
-    return _managerAPI.getPatchesRepo() == 'revanced/revanced-patches';
+    return _managerAPI.getPatchesRepo() == 'inotia00/revanced-patches';
   }
 
   Future<void> initialize() async {
@@ -80,13 +80,11 @@ class PatchesSelectorViewModel extends BaseViewModel {
 
   Future<String?> getPatchesVersion() async {
     if (isDefaultPatchesRepo()) {
-      patchesVersion = await _managerAPI.getLatestPatchesVersion();
+      patchesVersion = await _githubAPI.getLastestReleaseVersion(_managerAPI.getPatchesRepo());
       // print('Patches version: $patchesVersion');
       return patchesVersion ?? '0.0.0';
     } else {
-      // fetch from github
-      patchesVersion = await _githubAPI
-          .getLastestReleaseVersion(_managerAPI.getPatchesRepo());
+      return null;
     }
     return null;
   }
