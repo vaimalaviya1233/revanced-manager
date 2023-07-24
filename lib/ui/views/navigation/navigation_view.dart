@@ -45,16 +45,6 @@ class NavigationView extends StatelessWidget {
             destinations: <Widget>[
               NavigationDestination(
                 icon: model.isIndexSelected(0)
-                    ? const Icon(Icons.dashboard)
-                    : const Icon(Icons.dashboard_outlined),
-                label: FlutterI18n.translate(
-                  context,
-                  'navigationView.dashboardTab',
-                ),
-                tooltip: '',
-              ),
-              NavigationDestination(
-                icon: model.isIndexSelected(1)
                     ? const Icon(Icons.build)
                     : const Icon(Icons.build_outlined),
                 label: FlutterI18n.translate(
@@ -64,7 +54,7 @@ class NavigationView extends StatelessWidget {
                 tooltip: '',
               ),
               NavigationDestination(
-                icon: model.isIndexSelected(2)
+                icon: model.isIndexSelected(1)
                     ? const Icon(Icons.settings)
                     : const Icon(Icons.settings_outlined),
                 label: FlutterI18n.translate(
