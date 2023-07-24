@@ -75,7 +75,7 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
     // ReVanced
-    implementation "app.revanced:revanced-patcher:11.0.4"
+    implementation "io.github.inotia00:revanced-patcher:11.0.6-SNAPSHOT"
 
     // Signing & aligning
     implementation("org.bouncycastle:bcpkix-jdk15on:1.70")
