@@ -330,7 +330,7 @@ class ManagerAPI {
     final List<Application> userApps =
         await DeviceApps.getInstalledApplications();
     for (final Application app in userApps) {
-      if (app.packageName.startsWith('app.rvx') &&
+      if (app.packageName.startsWith('app.rvx.') &&
           !app.packageName.startsWith('app.rvx.manager.') &&
           !patchedApps.any((uapp) => uapp.packageName == app.packageName)) {
         final ApplicationWithIcon? application = await DeviceApps.getApp(
