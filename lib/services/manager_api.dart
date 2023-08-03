@@ -25,7 +25,7 @@ class ManagerAPI {
   bool isRooted = false;
   String storedPatchesFile = '/selected-patches.json';
   String keystoreFile =
-      '/sdcard/Android/data/app.revanced.manager.flutter/files/revanced-manager.keystore';
+      '/sdcard/Android/data/app.rvx.manager.flutter/files/revanced-manager.keystore';
   String defaultKeystorePassword = 's3cur3p@ssw0rd';
   String defaultApiUrl = 'https://releases.revanced.app/';
   String defaultRepoUrl = 'https://api.github.com';
@@ -330,8 +330,8 @@ class ManagerAPI {
     final List<Application> userApps =
         await DeviceApps.getInstalledApplications();
     for (final Application app in userApps) {
-      if (app.packageName.startsWith('app.revanced') &&
-          !app.packageName.startsWith('app.revanced.manager.') &&
+      if (app.packageName.startsWith('app.rvx.') &&
+          !app.packageName.startsWith('app.rvx.manager.') &&
           !patchedApps.any((uapp) => uapp.packageName == app.packageName)) {
         final ApplicationWithIcon? application = await DeviceApps.getApp(
           app.packageName,

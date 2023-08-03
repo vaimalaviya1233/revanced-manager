@@ -210,7 +210,7 @@ class InstallerViewModel extends BaseViewModel {
             _app.name += ' ReVanced';
             _app.packageName = _app.packageName.replaceFirst(
               'com.google.',
-              'app.revanced.',
+              'app.rvx.',
             );
           }
           await _managerAPI.savePatchedApp(_app);
