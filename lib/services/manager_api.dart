@@ -30,13 +30,13 @@ class ManagerAPI {
   String defaultApiUrl = 'https://releases.revanced.app/';
   String defaultRepoUrl = 'https://api.github.com';
   String defaultPatcherRepo = 'revanced/revanced-patcher';
-  String defaultPatchesRepo = 'revanced/revanced-patches';
-  String defaultIntegrationsRepo = 'revanced/revanced-integrations';
+  String defaultPatchesRepo = 'inotia00/revanced-patches';
+  String defaultIntegrationsRepo = 'inotia00/revanced-integrations';
   String defaultCliRepo = 'revanced/revanced-cli';
   String defaultManagerRepo = 'revanced/revanced-manager';
   String? patchesVersion = '';
   bool isDefaultPatchesRepo() {
-    return getPatchesRepo() == 'revanced/revanced-patches';
+    return getPatchesRepo() == 'inotia00/revanced-patches';
   }
 
   Future<void> initialize() async {
@@ -205,11 +205,7 @@ class ManagerAPI {
   Future<List<Patch>> getPatches() async {
     try {
       final String repoName = getPatchesRepo();
-      if (repoName == defaultPatchesRepo) {
-        return await _revancedAPI.getPatches();
-      } else {
-        return await _githubAPI.getPatches(repoName);
-      }
+      return await _githubAPI.getPatches(repoName);
     } on Exception catch (e) {
       if (kDebugMode) {
         print(e);
@@ -221,14 +217,7 @@ class ManagerAPI {
   Future<File?> downloadPatches() async {
     try {
       final String repoName = getPatchesRepo();
-      if (repoName == defaultPatchesRepo) {
-        return await _revancedAPI.getLatestReleaseFile(
-          '.jar',
-          defaultPatchesRepo,
-        );
-      } else {
-        return await _githubAPI.getLatestReleaseFile('.jar', repoName);
-      }
+      return await _githubAPI.getLatestReleaseFile('.jar', repoName);
     } on Exception catch (e) {
       if (kDebugMode) {
         print(e);
@@ -240,14 +229,7 @@ class ManagerAPI {
   Future<File?> downloadIntegrations() async {
     try {
       final String repoName = getIntegrationsRepo();
-      if (repoName == defaultIntegrationsRepo) {
-        return await _revancedAPI.getLatestReleaseFile(
-          '.apk',
-          defaultIntegrationsRepo,
-        );
-      } else {
-        return await _githubAPI.getLatestReleaseFile('.apk', repoName);
-      }
+      return await _githubAPI.getLatestReleaseFile('.apk', repoName);
     } on Exception catch (e) {
       if (kDebugMode) {
         print(e);
@@ -297,14 +279,8 @@ class ManagerAPI {
   }
 
   Future<String?> getCurrentPatchesVersion() async {
-    if (isDefaultPatchesRepo()) {
-      patchesVersion = await getLatestPatchesVersion();
-      // print('Patches version: $patchesVersion');
-    } else {
-      // fetch from github
-      patchesVersion =
+    patchesVersion =
           await _githubAPI.getLastestReleaseVersion(getPatchesRepo());
-    }
     return patchesVersion ?? '0.0.0';
   }
 
