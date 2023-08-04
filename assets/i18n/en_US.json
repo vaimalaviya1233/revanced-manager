@@ -21,13 +21,11 @@
         "updatesSubtitle": "Updates",
         "patchedSubtitle": "Patched applications",
 
-        "updatesAvailable": "Updates available",
         "noUpdates": "No updates available",
 
         "WIP": "Work in progress...",
 
         "noInstallations": "No patched applications installed",
-        "installed": "Installed",
         "installUpdate": "Continue to install the update?",
 
         "updateDialogTitle": "Update Manager",
@@ -48,7 +46,6 @@
         "updatesDisabled": "Updating a patched app is currently disabled. Repatch the app again."
     },
     "applicationItem": {
-        "patchButton": "Patch",
         "infoButton": "Info",
         "changelogLabel": "Changelog"
     },
