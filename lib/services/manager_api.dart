@@ -37,7 +37,9 @@ class ManagerAPI {
   String defaultPatchesRepo = 'revanced/revanced-patches';
   String defaultIntegrationsRepo = 'revanced/revanced-integrations';
   String defaultCliRepo = 'revanced/revanced-cli';
-  String defaultManagerRepo = 'revanced/revanced-manager';
+  String defaultManagerRepo = 'inotia00/revanced-manager';
+  String customPatchesRepo = 'inotia00/revanced-patches';
+  String customIntegrationsRepo = 'inotia00/revanced-integrations';
   String? patchesVersion = '';
   String? integrationsVersion = '';
   bool isDefaultPatchesRepo() {
@@ -88,12 +90,12 @@ class ManagerAPI {
   }
 
   String getPatchesRepo() {
-    return _prefs.getString('patchesRepo') ?? defaultPatchesRepo;
+    return _prefs.getString('patchesRepo') ?? customPatchesRepo;
   }
 
   Future<void> setPatchesRepo(String value) async {
     if (value.isEmpty || value.startsWith('/') || value.endsWith('/')) {
-      value = defaultPatchesRepo;
+      value = customPatchesRepo;
     }
     await _prefs.setString('patchesRepo', value);
   }
@@ -179,12 +181,12 @@ class ManagerAPI {
   }
 
   String getIntegrationsRepo() {
-    return _prefs.getString('integrationsRepo') ?? defaultIntegrationsRepo;
+    return _prefs.getString('integrationsRepo') ?? customIntegrationsRepo;
   }
 
   Future<void> setIntegrationsRepo(String value) async {
     if (value.isEmpty || value.startsWith('/') || value.endsWith('/')) {
-      value = defaultIntegrationsRepo;
+      value = customIntegrationsRepo;
     }
     await _prefs.setString('integrationsRepo', value);
   }
@@ -356,7 +358,7 @@ class ManagerAPI {
   }
 
   Future<File?> downloadManager() async {
-    return await _revancedAPI.getLatestReleaseFile(
+    return await _githubAPI.getLatestReleaseFile(
       '.apk',
       defaultManagerRepo,
     );
@@ -382,17 +384,24 @@ class ManagerAPI {
   }
 
   Future<String?> getLatestManagerReleaseTime() async {
-    return await _revancedAPI.getLatestReleaseTime(
-      '.apk',
-      defaultManagerRepo,
-    );
+    final release =
+        await _githubAPI.getLatestManagerRelease(defaultManagerRepo);
+    if (release != null) {
+      final DateTime timestamp =
+          DateTime.parse(release['created_at'] as String);
+      return format(timestamp, locale: 'en_short');
+    } else {
+      return null;
+    }
   }
 
   Future<String?> getLatestManagerVersion() async {
-    return await _revancedAPI.getLatestReleaseVersion(
-      '.apk',
-      defaultManagerRepo,
-    );
+    final release = await _githubAPI.getLatestRelease(defaultManagerRepo);
+    if (release != null) {
+      return release['tag_name'];
+    } else {
+      return null;
+    }
   }
 
   Future<String?> getLatestIntegrationsVersion() async {
