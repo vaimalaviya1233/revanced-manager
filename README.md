@@ -1,28 +1,18 @@
-# 💊 ReVanced Manager
+# 💊 RVX Manager
 
-The official ReVanced Manager based on Flutter.
+RVX Manager based on Flutter.
 
 ## 🔽 Download
 
-You can obtain ReVanced Manager by downloading it from either [revanced.app/download](https://revanced.app/download) or [GitHub Releases](https://github.com/ReVanced/revanced-manager/releases)
+To download latest Manager, go [here](https://github.com/inotia00/revanced-manager/releases/latest) and install the provided APK file.
 
 ## 📝 Prerequisites
 
 1. Android 8 or higher
-2. Incompatible with certain ARMv7 devices
-
-## 📃 Documentation
-The documentation can be found [here](https://github.com/revanced/revanced-manager/tree/main/docs).
+2. Only supports arm64-v8a devices
 
 ## 🔴 Issues
-
-For suggestions and bug reports, open an issue [here](https://github.com/revanced/revanced-manager/issues/new/choose).
-
-## 🌐 Translation
-
-[![Crowdin](https://badges.crowdin.net/revanced/localized.svg)](https://crowdin.com/project/revanced)
-
-We're accepting translations on [Crowdin](https://translate.revanced.app).
+For suggestions and bug reports, open an issue [here](https://github.com/inotia00/ReVanced_Extended/issues/new/choose).
 
 ## 🛠️ Building Manager from source
 
