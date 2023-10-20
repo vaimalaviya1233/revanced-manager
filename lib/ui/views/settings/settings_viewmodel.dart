@@ -1,9 +1,8 @@
 import 'dart:io';
-import 'package:cr_file_saver/file_saver.dart';
 import 'package:device_info_plus/device_info_plus.dart';
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_file_dialog/flutter_file_dialog.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:logcat/logcat.dart';
 import 'package:path_provider/path_provider.dart';
@@ -16,7 +15,7 @@ import 'package:revanced_manager/ui/views/patches_selector/patches_selector_view
 import 'package:revanced_manager/ui/views/settings/settingsFragment/settings_update_language.dart';
 import 'package:revanced_manager/ui/views/settings/settingsFragment/settings_update_theme.dart';
 import 'package:revanced_manager/ui/widgets/shared/custom_material_button.dart';
-import 'package:share_extend/share_extend.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
@@ -162,10 +161,10 @@ class SettingsViewModel extends BaseViewModel {
       if (outFile.existsSync()) {
         final String dateTime =
             DateTime.now().toString().replaceAll(' ', '_').split('.').first;
-        await CRFileSaver.saveFileWithDialog(
-          SaveFileDialogParams(
+        await FlutterFileDialog.saveFile(
+          params: SaveFileDialogParams(
             sourceFilePath: outFile.path,
-            destinationFileName: 'selected_patches_$dateTime.json',
+            fileName: 'selected_patches_$dateTime.json',
           ),
         );
         _toast.showBottom('settingsView.exportedPatches');
@@ -182,12 +181,13 @@ class SettingsViewModel extends BaseViewModel {
   Future<void> importPatches(BuildContext context) async {
     if (isPatchesChangeEnabled()) {
       try {
-        final FilePickerResult? result = await FilePicker.platform.pickFiles(
-          type: FileType.custom,
-          allowedExtensions: ['json'],
+        final String? result = await FlutterFileDialog.pickFile(
+          params: const OpenFileDialogParams(
+            fileExtensionsFilter: ['json'],
+          ),
         );
-        if (result != null && result.files.single.path != null) {
-          final File inFile = File(result.files.single.path!);
+        if (result != null) {
+          final File inFile = File(result);
           inFile.copySync(_managerAPI.storedPatchesFile);
           inFile.delete();
           if (_patcherViewModel.selectedApp != null) {
@@ -212,10 +212,10 @@ class SettingsViewModel extends BaseViewModel {
       if (outFile.existsSync()) {
         final String dateTime =
             DateTime.now().toString().replaceAll(' ', '_').split('.').first;
-        await CRFileSaver.saveFileWithDialog(
-          SaveFileDialogParams(
+        await FlutterFileDialog.saveFile(
+          params: SaveFileDialogParams(
             sourceFilePath: outFile.path,
-            destinationFileName: 'keystore_$dateTime.keystore',
+            fileName: 'keystore_$dateTime.keystore',
           ),
         );
         _toast.showBottom('settingsView.exportedKeystore');
@@ -231,9 +231,9 @@ class SettingsViewModel extends BaseViewModel {
 
   Future<void> importKeystore() async {
     try {
-      final FilePickerResult? result = await FilePicker.platform.pickFiles();
-      if (result != null && result.files.single.path != null) {
-        final File inFile = File(result.files.single.path!);
+      final String? result = await FlutterFileDialog.pickFile();
+      if (result != null) {
+        final File inFile = File(result);
         inFile.copySync(_managerAPI.keystoreFile);
 
         _toast.showBottom('settingsView.importedKeystore');
@@ -284,6 +284,6 @@ class SettingsViewModel extends BaseViewModel {
         File('${logDir.path}/revanced-manager_logcat_$dateTime.log');
     final String logs = await Logcat.execute();
     logcat.writeAsStringSync(logs);
-    ShareExtend.share(logcat.path, 'file');
+    await Share.shareXFiles([XFile(logcat.path)]);
   }
 }
