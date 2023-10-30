@@ -85,6 +85,8 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
     // ReVanced
+    // To build, clone revanced-patcher and change kotlin-reflact version from 1.9.0 to 1.8.22.
+    // Then change the version name and publish to Maven local.
     implementation "app.revanced:revanced-patcher:19.0.0"
 
     // Signing & aligning
