@@ -42,7 +42,7 @@ android {
     defaultConfig {
         applicationId "app.rvx.manager.flutter"
         minSdk 26
-        targetSdk 34
+        targetSdk 29
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
     }
